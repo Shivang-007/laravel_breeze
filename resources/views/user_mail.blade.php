@@ -1,0 +1,1 @@
+<p><b>Post Title:</b> {{$data['title']}}  </p>
