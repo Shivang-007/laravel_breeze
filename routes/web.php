@@ -4,6 +4,8 @@ use App\Http\Controllers\DeshboardController;
 use App\Http\Controllers\HomeController;
 
 use App\Http\Controllers\PostController;
+use App\Http\Controllers\ProductController;
+
 use App\Http\Controllers\NotificationController;
 use Illuminate\Support\Facades\Mail;
 use App\Mail\sendMailMarkdown;
@@ -33,6 +35,9 @@ use App\Postcard;
 Route::get('/', function () {
     return view('welcome');
 });
+
+//observer
+Route::get('/observe',[ProductController::class,'index']);
 
 //service provider
 Route::get('/provide',function(PaypalApi $payment){
