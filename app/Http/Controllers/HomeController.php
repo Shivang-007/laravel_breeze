@@ -19,6 +19,18 @@ class HomeController extends Controller
   }
 
 
+  //serialization
+  public function index(){
+    //$user=Member::all()->toJson();
+    $user=Member::all()->toArray();
+    //$user=json_decode($user);
+    var_dump($user);
+    //return $user->toJson();
+    //return $user->toArray();
+    return view('serialize',['users'=>$user]);
+  }
+
+
 
   //cache practice
   public function cache_store()
@@ -44,11 +56,11 @@ class HomeController extends Controller
 
 
 
-    $cachedBlog = Redis::get('member' . $id);
+    $cachedData = Redis::get('member' . $id);
 
 
     if (isset($cachedBlog)) {
-      $member = json_decode($cachedBlog, FALSE);
+      $member = json_decode($cachedData, FALSE);
 
       return response()->json([
         'status_code' => 201,
@@ -99,5 +111,16 @@ class HomeController extends Controller
         'status_code' => 201,
         'message' => 'Blog deleted'
     ]);
+  }
+
+  public function exception(){
+    try{
+    $data=Member::where('id',70)->firstOrFail();
+    return $data;
+    }
+    catch(\Exception $ex){
+      dd(get_class($ex));
+    }
+  
   }
 }

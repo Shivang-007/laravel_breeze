@@ -13,4 +13,11 @@ class Member extends Model
         "name",
         "email"
     ];
+    protected $hidden=[
+        'email',
+        
+    ];
+    protected $visible=[
+        'name'
+    ];
 }

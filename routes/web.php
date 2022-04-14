@@ -11,6 +11,13 @@ use App\Jobs\sendTestMailJob;
 use App\Models\User;
 use Illuminate\Support\Facades\Route;
 
+//For Service Provider
+use App\Paymentservice\PaypalApi;
+
+// forFacades
+use App\PostCardSendingService;
+use App\Postcard;
+
 
 /*
 |--------------------------------------------------------------------------
@@ -25,6 +32,24 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
     return view('welcome');
+});
+
+//service provider
+Route::get('/provide',function(PaypalApi $payment){
+   dd($payment->pay());
+});
+
+//Facades
+Route::get('/postcards', function () {
+    $postCardService = new PostCardSendingService('USA',6,4);
+    $postCardService->hello('Hello from laravel USA','test@test.com');
+});
+
+Route::get('/facades',function(){
+
+    Postcard::hello('hello from facades','abc@gmail.com');
+       //  Postcard::something();
+      // Postcard::any();
 });
 
 //practice queue
@@ -54,9 +79,11 @@ Route::get('/update/{id}',[HomeController::class,'redis_update']);
 Route::get('/delete/{id}',[HomeController::class,'redis_delete']);
 
 
+//serialization
+Route::get('/index/{id}',[HomeController::class,'index']);
 
-
-
+//exceptoion
+Route::get('/getdata',[HomeController::class,'exception']);
 
 //practice Rate limiting
 Route::get('/rate',function(){

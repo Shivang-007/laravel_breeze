@@ -2,7 +2,9 @@
 
 namespace App\Providers;
 
+use App\PostCardSendingService;
 use Illuminate\Support\ServiceProvider;
+
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -24,5 +26,9 @@ class AppServiceProvider extends ServiceProvider
     public function boot()
     {
         //
+        $this->app->singleton('Postcard',function($app){
+            return new PostCardSendingService('USA',6,4);
+        });
+
     }
 }
