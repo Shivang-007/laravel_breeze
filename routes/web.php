@@ -12,6 +12,8 @@ use App\Mail\sendMailMarkdown;
 use App\Jobs\sendTestMailJob;
 use App\Models\User;
 use Illuminate\Support\Facades\Route;
+use Illuminate\Support\Facades\Log;
+
 
 //For Service Provider
 use App\Paymentservice\PaypalApi;
@@ -33,6 +35,8 @@ use App\Postcard;
 */
 
 Route::get('/', function () {
+
+    Log::Info('Log Activated!');
     return view('welcome');
 });
 
@@ -56,6 +60,10 @@ Route::get('/facades',function(){
        //  Postcard::something();
       // Postcard::any();
 });
+
+
+//Error & Exception Handling
+ROute::get('post/{id}',[HomeController::class,'getPost']);
 
 //practice queue
 Route::get('/queue', function () {
@@ -87,6 +95,12 @@ Route::get('/delete/{id}',[HomeController::class,'redis_delete']);
 //serialization
 Route::get('/index/{id}',[HomeController::class,'index']);
 
+
+
+//Soft Delete
+Route::get('/soft',[HomeController::class,'softDelete']);
+
+
 //exceptoion
 Route::get('/getdata',[HomeController::class,'exception']);
 
@@ -94,6 +108,11 @@ Route::get('/getdata',[HomeController::class,'exception']);
 Route::get('/rate',function(){
     return "Hii! Route Calling";
 })->middleware('throttle:limit_request');
+
+//practice Accessors and Mutetors
+Route::get('/user-post',[HomeController::class,'postData']);
+Route::get('/user-data',[HomeController::class,'userData']);
+
 
 
 Route::middleware(['auth'])->group(function(){

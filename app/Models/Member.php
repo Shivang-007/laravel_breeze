@@ -4,20 +4,22 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
+
 
 class Member extends Model
 {
-    use HasFactory;
+    use HasFactory,SoftDeletes;
     protected $table="members";
-    public $fillable=[
-        "name",
-        "email"
-    ];
-    protected $hidden=[
-        'email',
+    // public $fillable=[
+    //     "name",
+    //     "email"
+    // ];
+    // protected $hidden=[
+    //     'email',
         
-    ];
-    protected $visible=[
-        'name'
-    ];
+    // ];
+    // protected $visible=[
+    //     'name'
+    // ];
 }

@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateMembersTable extends Migration
+class AddSoftDelete extends Migration
 {
     /**
      * Run the migrations.
@@ -13,12 +13,9 @@ class CreateMembersTable extends Migration
      */
     public function up()
     {
-        Schema::create('members', function (Blueprint $table) {
-            $table->id();
-            $table->String('name');
-            $table->String('email');
-            $table->timestamps();
-          
+        Schema::table('members', function (Blueprint $table) {
+            //
+            $table->softDeletes();
         });
     }
 
@@ -29,6 +26,9 @@ class CreateMembersTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('members');
+        Schema::table('members', function (Blueprint $table) {
+            //
+            $table->dropSoftDeletes();
+        });
     }
 }

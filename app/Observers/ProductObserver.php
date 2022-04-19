@@ -18,11 +18,13 @@ class ProductObserver
         //
         $product->sku='PRODUCT-'.$product->id;
         $product->save();
+        dd("product created successfully") ;
     }
     public function creating(Product $product)
     {
         $product->slug = Str::slug($product->name);
         $product->sku='PRODUCT-'.$product->id;
+        
     }
 
     /**
